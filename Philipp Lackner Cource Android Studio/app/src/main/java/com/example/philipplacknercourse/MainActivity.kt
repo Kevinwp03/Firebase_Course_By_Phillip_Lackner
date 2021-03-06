@@ -12,15 +12,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btnStartService.setOnClickListener {
-            Intent(this, MyIntentService::class.java).also {
+            Intent(this, MyService::class.java).also {
                 startService(it) // bukan Star Activity, tapi service
-                tvServiceInfo.text = "Service is Running"
+                tvServiceInfo.text = "Service is Running..."
             }
         }
 
         btnStopService.setOnClickListener {
-            MyIntentService.stopService()
-            tvServiceInfo.text = "Service is Stopped"
+            Intent(this, MyService::class.java).also {
+                stopService(it)
+                tvServiceInfo.text = "Service is Stopped..."
+            }
+        }
+
+        btnSendData.setOnClickListener {
+            Intent(this, MyService::class.java).also{
+                val dataString = etData.text.toString()
+                it.putExtra("EXTRA_DATA", dataString)
+                startService(it)
+            }
         }
     }
 }
