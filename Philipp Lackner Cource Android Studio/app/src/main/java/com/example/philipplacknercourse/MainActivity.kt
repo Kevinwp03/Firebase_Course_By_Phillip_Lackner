@@ -1,36 +1,29 @@
 package com.example.philipplacknercourse
 
+import android.content.BroadcastReceiver
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var receiver: AirplaneModeChangeReceiverMode
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnStartService.setOnClickListener {
-            Intent(this, MyService::class.java).also {
-                startService(it) // bukan Star Activity, tapi service
-                tvServiceInfo.text = "Service is Running..."
-            }
-        }
+        receiver = AirplaneModeChangeReceiverMode()
 
-        btnStopService.setOnClickListener {
-            Intent(this, MyService::class.java).also {
-                stopService(it)
-                tvServiceInfo.text = "Service is Stopped..."
-            }
+        IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED).also {
+            registerReceiver(receiver, it)
         }
+    }
 
-        btnSendData.setOnClickListener {
-            Intent(this, MyService::class.java).also{
-                val dataString = etData.text.toString()
-                it.putExtra("EXTRA_DATA", dataString)
-                startService(it)
-            }
-        }
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(receiver)
     }
 }
