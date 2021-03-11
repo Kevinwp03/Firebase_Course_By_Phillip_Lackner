@@ -1,9 +1,11 @@
 package com.example.firebasecourcebyphilliplackner
 
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         auth = FirebaseAuth.getInstance()
-        //auth.signOut()
+        auth.signOut()
 
         btnRegister.setOnClickListener {
             registerUser()
@@ -28,11 +30,38 @@ class MainActivity : AppCompatActivity() {
             loginUser()
         }
 
-        btnSignOut.setOnClickListener {
-            auth.signOut()
+        btnUpdateProfile.setOnClickListener {
+            updateProfile()
         }
-
     }
+
+    private fun updateProfile() {
+        auth.currentUser?.let { user ->
+            val username = etUsername.text.toString()
+            val photoURI = Uri.parse("android.resource://$packageName/${R.drawable.picture_anime}")
+            val profileUpdate = UserProfileChangeRequest.Builder()
+                    .setDisplayName(username)
+                    .setPhotoUri(photoURI)
+                    .build()
+
+
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    user.updateProfile(profileUpdate).await()
+                    checkLoggedInState()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@MainActivity, "Successfully update user profile",
+                                Toast.LENGTH_LONG).show()
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
+    }
+
 
     override fun onStart() { //Mengecek apakah user sudah login
         super.onStart()
@@ -79,10 +108,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkLoggedInState() {
-        if (auth.currentUser == null) {
+        val user = auth.currentUser
+        if (user == null) {
             tvLoggedIn.text = "You are not logged in"
         } else {
             tvLoggedIn.text = "You are logged in"
+            etUsername.setText(user.displayName)
+            ivProfilePicture.setImageURI(user.photoUrl)
         }
     }
 }
