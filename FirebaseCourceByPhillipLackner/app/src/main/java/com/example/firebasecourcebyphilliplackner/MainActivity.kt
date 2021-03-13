@@ -12,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.lang.StringBuilder
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,18 +29,37 @@ class MainActivity : AppCompatActivity() {
             savePerson(person)
         }
 
-        btnRetreiveData.setOnClickListener {
+        subscribeToRealtimeUpdate()
+
+        /*btnRetreiveData.setOnClickListener {
             retrievePersons()
+        }*/
+    }
+
+    private fun subscribeToRealtimeUpdate() {
+        personCollectionRef.addSnapshotListener { querySnapshot, firebaseFirestoreExeption ->
+            firebaseFirestoreExeption?.let {
+                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                return@addSnapshotListener
+            }
+            querySnapshot?.let {
+                val sb = StringBuilder()
+                for (document in querySnapshot.documents) {
+                    val person = document.toObject<Person>() //(Person::class.java)
+                    sb.append("$person\n") //append = menambahkan
+                }
+                tvPersons.text = sb.toString()
+            }
         }
     }
 
-
+// Gak kepake
     private fun retrievePersons() = CoroutineScope(Dispatchers.IO).launch {
         try {
             //data class harus diisi default value
-            val querySnapshot  = personCollectionRef.get().await() //buat querynya
+            val querySnapshot = personCollectionRef.get().await() //buat querynya
             val sb = StringBuilder()
-            for(document in querySnapshot.documents){
+            for (document in querySnapshot.documents) {
                 val person = document.toObject<Person>() //(Person::class.java)
                 sb.append("$person\n") //append = menambahkan
             }
