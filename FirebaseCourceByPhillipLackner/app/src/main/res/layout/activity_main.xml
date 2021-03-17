@@ -13,205 +13,27 @@
         tools:context=".MainActivity">
 
         <TextView
-            android:id="@+id/tvRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Register"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvEmailRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E-mail"
-            app:layout_constraintBottom_toTopOf="@+id/etEmailRegister"
-            app:layout_constraintStart_toStartOf="@+id/etEmailRegister" />
-
-        <TextView
-            android:id="@+id/tvPasswordRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Password"
-            app:layout_constraintStart_toStartOf="@+id/etPasswordRegister"
-            app:layout_constraintTop_toBottomOf="@+id/etEmailRegister" />
-
-        <EditText
-            android:id="@+id/etEmailRegister"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:ems="10"
-            android:hint="Enter E-Mail"
-            android:inputType="textEmailAddress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRegister" />
-
-        <EditText
-            android:id="@+id/etPasswordRegister"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Password"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPasswordRegister" />
-
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="REGISTER"
-            app:layout_constraintEnd_toEndOf="@+id/etPasswordRegister"
-            app:layout_constraintTop_toBottomOf="@+id/etPasswordRegister" />
-
-        <TextView
-            android:id="@+id/tvLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Login"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.538"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
-
-
-        <TextView
-            android:id="@+id/tvEmailLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E-mail"
-            app:layout_constraintBottom_toTopOf="@+id/etEmailLogin"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tvPasswordLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Password"
-            app:layout_constraintStart_toStartOf="@+id/etPasswordLogin"
-            app:layout_constraintTop_toBottomOf="@+id/etEmailLogin" />
-
-        <EditText
-            android:id="@+id/etEmailLogin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:ems="10"
-            android:hint="Enter E-Mail"
-            android:inputType="textEmailAddress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.125"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLogin" />
-
-        <EditText
-            android:id="@+id/etPasswordLogin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Password"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPasswordLogin" />
-
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="LOGIN"
-            app:layout_constraintEnd_toEndOf="@+id/etPasswordLogin"
-            app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
-
-        <ImageView
-            android:id="@+id/ivProfilePicture"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:background="#CACACA"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-        <EditText
-            android:id="@+id/etUsername"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:hint="Enter Username here..."
-            app:layout_constraintBottom_toTopOf="@+id/btnUpdateProfile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivProfilePicture"
-            app:layout_constraintTop_toTopOf="@+id/ivProfilePicture" />
-
-        <Button
-            android:id="@+id/btnUpdateProfile"
-            android:layout_width="160dp"
-            android:layout_height="53dp"
-            android:text="Update Profile"
-            app:layout_constraintBottom_toBottomOf="@+id/ivProfilePicture"
-            app:layout_constraintEnd_toEndOf="@+id/etUsername"
-            app:layout_constraintStart_toStartOf="@+id/etUsername"
-            app:layout_constraintTop_toBottomOf="@+id/etUsername" />
-
-        <TextView
-            android:id="@+id/tvLoggedIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="You are not logged in"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivProfilePicture" />
-
-
-        <Button
-            android:id="@+id/btnGoogleSignIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:drawableEnd="@drawable/ic_google_icon"
-            android:text="Sign in with "
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLoggedIn" />
-
-        <TextView
             android:id="@+id/tvDataBase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="Sent to Database"
+            android:text="FireStore"
+            android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnGoogleSignIn" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/etFirstName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:ems="10"
+            android:ems="8"
             android:hint="FirstName"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/etUpdateFirstName"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDataBase" />
@@ -221,24 +43,58 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:ems="10"
+            android:ems="8"
             android:hint="LastName"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/etUpdateLastname"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etFirstName" />
-
 
         <EditText
             android:id="@+id/etAge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:ems="10"
+            android:ems="8"
             android:hint="Age"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/etUpdateAge"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etLastName" />
 
+
+        <EditText
+            android:id="@+id/etUpdateFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:ems="8"
+            android:hint="New FirstName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/etFirstName"
+            app:layout_constraintTop_toTopOf="@+id/etFirstName" />
+
+        <EditText
+            android:id="@+id/etUpdateLastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:ems="8"
+            android:hint="New Lastname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/etLastName"
+            app:layout_constraintTop_toTopOf="@+id/etLastName" />
+
+        <EditText
+            android:id="@+id/etUpdateAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8"
+            android:hint="new Age"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/etAge"
+            app:layout_constraintTop_toTopOf="@+id/etAge" />
 
         <Button
             android:id="@+id/btnSendToDatabase"
@@ -246,10 +102,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Save to DataBase"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnUpdateData"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etAge" />
+
+        <Button
+            android:id="@+id/btnUpdateData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UPDATE PERSON"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnSendToDatabase"
+            app:layout_constraintTop_toTopOf="@+id/btnSendToDatabase" />
 
         <Button
             android:id="@+id/btnRetreiveData"
@@ -270,9 +136,33 @@
             android:text="PERSON DATA"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etFrom" />
+
+        <EditText
+            android:id="@+id/etFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="4"
+            android:hint="min"
+            app:layout_constraintEnd_toStartOf="@+id/etTo"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnRetreiveData" />
+
+        <EditText
+            android:id="@+id/etTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="3"
+            android:hint="max"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/etFrom"
+            app:layout_constraintTop_toTopOf="@+id/etFrom" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
