@@ -3,6 +3,7 @@ package com.example.firebasecourcebyphilliplackner
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -35,6 +36,41 @@ class MainActivity : AppCompatActivity() {
             val oldPerson = getOldPerson()
             val newPerson = getNewPersonMap()
             updatePerson(oldPerson, newPerson)
+        }
+
+        btnDeletePerson.setOnClickListener {
+            val person = getOldPerson()
+            deletePerson(person)
+        }
+    }
+
+    //Menghapus data
+    private fun deletePerson(person: Person) = CoroutineScope(Dispatchers.IO).launch {
+        val personQuery = personCollectionRef
+                .whereEqualTo("firstName", person.firstName)
+                .whereEqualTo("lastName", person.lastName)
+                .whereEqualTo("age", person.age)
+                .get()
+                .await()
+        if (personQuery.documents.isNotEmpty()) {
+            for (document in personQuery) {
+                try {
+                    personCollectionRef.document(document.id).delete().await() // ini akan mahapus semua nilai pada data yang dipilih
+                    /*personCollectionRef.document(document.id).update(mapOf( // ini akan menghapus salah satu nilai pada data
+                            "firstName" to FieldValue.delete()
+                    )).await()*/
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@MainActivity, e.message,
+                                Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        } else {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@MainActivity, "No person matched the query",
+                        Toast.LENGTH_LONG).show()
+            }
         }
     }
 

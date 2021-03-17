@@ -45,9 +45,7 @@
             android:layout_marginTop="8dp"
             android:ems="8"
             android:hint="LastName"
-            app:layout_constraintEnd_toStartOf="@+id/etUpdateLastname"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/etFirstName"
             app:layout_constraintTop_toBottomOf="@+id/etFirstName" />
 
         <EditText
@@ -57,8 +55,7 @@
             android:layout_marginTop="8dp"
             android:ems="8"
             android:hint="Age"
-            app:layout_constraintEnd_toStartOf="@+id/etUpdateAge"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/etLastName"
             app:layout_constraintTop_toBottomOf="@+id/etLastName" />
 
 
@@ -78,12 +75,9 @@
             android:id="@+id/etUpdateLastname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:ems="8"
             android:hint="New Lastname"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/etLastName"
+            app:layout_constraintEnd_toEndOf="@+id/etUpdateFirstName"
             app:layout_constraintTop_toTopOf="@+id/etLastName" />
 
         <EditText
@@ -92,8 +86,7 @@
             android:layout_height="wrap_content"
             android:ems="8"
             android:hint="new Age"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/etAge"
+            app:layout_constraintEnd_toEndOf="@+id/etUpdateLastname"
             app:layout_constraintTop_toTopOf="@+id/etAge" />
 
         <Button
@@ -102,9 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Save to DataBase"
-            app:layout_constraintEnd_toStartOf="@+id/btnUpdateData"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/etAge"
             app:layout_constraintTop_toBottomOf="@+id/etAge" />
 
         <Button
@@ -112,21 +103,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="UPDATE PERSON"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/etUpdateAge"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btnSendToDatabase"
             app:layout_constraintTop_toTopOf="@+id/btnSendToDatabase" />
 
         <Button
             android:id="@+id/btnRetreiveData"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="RETRIEVE DATA"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnSendToDatabase"
+            app:layout_constraintStart_toStartOf="@+id/btnSendToDatabase"
             app:layout_constraintTop_toBottomOf="@+id/btnSendToDatabase" />
+
+        <Button
+            android:id="@+id/btnDeletePerson"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Delete Person"
+            app:layout_constraintEnd_toEndOf="@+id/btnUpdateData"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/btnUpdateData"
+            app:layout_constraintTop_toTopOf="@+id/btnRetreiveData" />
 
         <TextView
             android:id="@+id/tvPersons"
@@ -145,7 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:ems="4"
+            android:ems="3"
             android:hint="min"
             app:layout_constraintEnd_toStartOf="@+id/etTo"
             app:layout_constraintHorizontal_bias="0.5"
