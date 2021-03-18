@@ -140,17 +140,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etFrom" />
 
+        <Button
+            android:id="@+id/btnDoBatchWrite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Do Batch Write"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnRetreiveData" />
+
         <EditText
             android:id="@+id/etFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:ems="3"
+            android:layout_marginTop="8dp"
             android:hint="min"
             app:layout_constraintEnd_toStartOf="@+id/etTo"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnRetreiveData" />
+            app:layout_constraintTop_toBottomOf="@+id/btnDoBatchWrite" />
 
         <EditText
             android:id="@+id/etTo"
@@ -162,6 +173,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/etFrom"
             app:layout_constraintTop_toTopOf="@+id/etFrom" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

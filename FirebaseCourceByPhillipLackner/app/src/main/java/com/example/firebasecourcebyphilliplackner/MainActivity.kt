@@ -3,7 +3,6 @@ package com.example.firebasecourcebyphilliplackner
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -41,6 +40,10 @@ class MainActivity : AppCompatActivity() {
         btnDeletePerson.setOnClickListener {
             val person = getOldPerson()
             deletePerson(person)
+        }
+
+        btnDoBatchWrite.setOnClickListener {
+            changeName("Hve8diBwJ5v7YMaKX4c3", "Elon", "Musk")
         }
     }
 
@@ -129,6 +132,25 @@ class MainActivity : AppCompatActivity() {
             map["age"] = age.toInt()
         }
         return map
+    }
+
+    //Batch Write, -> mengganti data sesuai lokasi code folder yang di set
+    private fun changeName(
+            personId: String,
+            newFirstname: String,
+            newLastname: String,
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            Firebase.firestore.runBatch { batch ->
+                val personRef = personCollectionRef.document(personId)
+                batch.update(personRef, "firstName", newFirstname)
+                batch.update(personRef, "lastName", newLastname)
+            }.await()
+        }catch (e: Exception){
+            withContext(Dispatchers.Main){
+                Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun subscribeToRealtimeUpdate() {
