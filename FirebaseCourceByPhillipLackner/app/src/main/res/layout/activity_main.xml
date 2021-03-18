@@ -142,14 +142,23 @@
 
         <Button
             android:id="@+id/btnDoBatchWrite"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Do Batch Write"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnRetreiveData"
+            app:layout_constraintStart_toStartOf="@+id/btnRetreiveData"
             app:layout_constraintTop_toBottomOf="@+id/btnRetreiveData" />
+
+        <Button
+            android:id="@+id/btnTransaction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Do Transaction"
+            app:layout_constraintEnd_toEndOf="@+id/btnDeletePerson"
+            app:layout_constraintStart_toStartOf="@+id/btnDeletePerson"
+            app:layout_constraintTop_toTopOf="@+id/btnDoBatchWrite" />
 
         <EditText
             android:id="@+id/etFrom"

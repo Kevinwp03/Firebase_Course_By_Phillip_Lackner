@@ -45,6 +45,10 @@ class MainActivity : AppCompatActivity() {
         btnDoBatchWrite.setOnClickListener {
             changeName("Hve8diBwJ5v7YMaKX4c3", "Elon", "Musk")
         }
+
+        btnTransaction.setOnClickListener {
+            birthDay("Hve8diBwJ5v7YMaKX4c3")
+        }
     }
 
     //Menghapus data
@@ -134,80 +138,98 @@ class MainActivity : AppCompatActivity() {
         return map
     }
 
-    //Batch Write, -> mengganti data sesuai lokasi code folder yang di set
-    private fun changeName(
-            personId: String,
-            newFirstname: String,
-            newLastname: String,
-    ) = CoroutineScope(Dispatchers.IO).launch {
+    // Do Transaction
+    private fun birthDay(personId: String) = CoroutineScope(Dispatchers.IO).launch {
         try {
-            Firebase.firestore.runBatch { batch ->
+            Firebase.firestore.runTransaction{ transaction ->
                 val personRef = personCollectionRef.document(personId)
-                batch.update(personRef, "firstName", newFirstname)
-                batch.update(personRef, "lastName", newLastname)
+                val person = transaction.get(personRef)  // document snapshot?
+                val newAge = person["age"] as Long + 1
+                transaction.update(personRef, "age", newAge)
+                null
             }.await()
-        }catch (e: Exception){
-            withContext(Dispatchers.Main){
+
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
                 Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun subscribeToRealtimeUpdate() {
-        personCollectionRef.addSnapshotListener { querySnapshot, firebaseFirestoreExeption ->
-            firebaseFirestoreExeption?.let {
-                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                return@addSnapshotListener
+        //Batch Write, -> mengganti data sesuai lokasi code folder yang di set
+        private fun changeName(
+                personId: String,
+                newFirstname: String,
+                newLastname: String,
+        ) = CoroutineScope(Dispatchers.IO).launch {
+            try {
+                Firebase.firestore.runBatch { batch ->
+                    val personRef = personCollectionRef.document(personId)
+                    batch.update(personRef, "firstName", newFirstname)
+                    batch.update(personRef, "lastName", newLastname)
+                }.await()
+            }catch (e: Exception){
+                withContext(Dispatchers.Main){
+                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+                }
             }
-            querySnapshot?.let {
+        }
+
+        private fun subscribeToRealtimeUpdate() {
+            personCollectionRef.addSnapshotListener { querySnapshot, firebaseFirestoreExeption ->
+                firebaseFirestoreExeption?.let {
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    return@addSnapshotListener
+                }
+                querySnapshot?.let {
+                    val sb = StringBuilder()
+                    for (document in querySnapshot.documents) {
+                        val person = document.toObject<Person>() //(Person::class.java)
+                        sb.append("$person\n") //append = menambahkan
+                    }
+                    tvPersons.text = sb.toString()
+                }
+            }
+        }
+
+        //mengambil data
+        private fun retrievePersons() = CoroutineScope(Dispatchers.IO).launch {
+            val fromAge = etFrom.text.toString().toInt()
+            val toAge = etTo.text.toString().toInt()
+            try {
+                //data class harus diisi default value
+                val querySnapshot = personCollectionRef
+                        .whereGreaterThan("age", fromAge) // lebih besar dari
+                        .whereLessThan("age", toAge)  // Lebih kecil dari
+                        .orderBy("age")
+                        .get()
+                        .await() //buat querynya
                 val sb = StringBuilder()
                 for (document in querySnapshot.documents) {
                     val person = document.toObject<Person>() //(Person::class.java)
                     sb.append("$person\n") //append = menambahkan
                 }
-                tvPersons.text = sb.toString()
+                withContext(Dispatchers.Main) {
+                    tvPersons.text = sb.toString()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
-    }
 
-    //mengambil data
-    private fun retrievePersons() = CoroutineScope(Dispatchers.IO).launch {
-        val fromAge = etFrom.text.toString().toInt()
-        val toAge = etTo.text.toString().toInt()
-        try {
-            //data class harus diisi default value
-            val querySnapshot = personCollectionRef
-                    .whereGreaterThan("age", fromAge) // lebih besar dari
-                    .whereLessThan("age", toAge)  // Lebih kecil dari
-                    .orderBy("age")
-                    .get()
-                    .await() //buat querynya
-            val sb = StringBuilder()
-            for (document in querySnapshot.documents) {
-                val person = document.toObject<Person>() //(Person::class.java)
-                sb.append("$person\n") //append = menambahkan
-            }
-            withContext(Dispatchers.Main) {
-                tvPersons.text = sb.toString()
-            }
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+        //Menyimpan datanya
+        private fun savePerson(person: Person) = CoroutineScope(Dispatchers.IO).launch {
+            try {
+                personCollectionRef.add(person).await()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, "Successfully save data", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
-    }
-
-    //Menyimpan datanya
-    private fun savePerson(person: Person) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            personCollectionRef.add(person).await()
-            withContext(Dispatchers.Main) {
-                Toast.makeText(this@MainActivity, "Successfully save data", Toast.LENGTH_LONG).show()
-            }
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
-            }
-        }
-    }
 }
