@@ -1,189 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        tools:context=".MainActivity">
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="250dp"
+        android:layout_height="400dp"
+        android:src="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvDataBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="FireStore"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/btnUploadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Upload Image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivImage" />
 
-        <EditText
-            android:id="@+id/etFirstName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="8"
-            android:hint="FirstName"
-            app:layout_constraintEnd_toStartOf="@+id/etUpdateFirstName"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDataBase" />
-
-        <EditText
-            android:id="@+id/etLastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="8"
-            android:hint="LastName"
-            app:layout_constraintStart_toStartOf="@+id/etFirstName"
-            app:layout_constraintTop_toBottomOf="@+id/etFirstName" />
-
-        <EditText
-            android:id="@+id/etAge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="8"
-            android:hint="Age"
-            app:layout_constraintStart_toStartOf="@+id/etLastName"
-            app:layout_constraintTop_toBottomOf="@+id/etLastName" />
-
-
-        <EditText
-            android:id="@+id/etUpdateFirstName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:ems="8"
-            android:hint="New FirstName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/etFirstName"
-            app:layout_constraintTop_toTopOf="@+id/etFirstName" />
-
-        <EditText
-            android:id="@+id/etUpdateLastname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="8"
-            android:hint="New Lastname"
-            app:layout_constraintEnd_toEndOf="@+id/etUpdateFirstName"
-            app:layout_constraintTop_toTopOf="@+id/etLastName" />
-
-        <EditText
-            android:id="@+id/etUpdateAge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="8"
-            android:hint="new Age"
-            app:layout_constraintEnd_toEndOf="@+id/etUpdateLastname"
-            app:layout_constraintTop_toTopOf="@+id/etAge" />
-
-        <Button
-            android:id="@+id/btnSendToDatabase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Save to DataBase"
-            app:layout_constraintStart_toStartOf="@+id/etAge"
-            app:layout_constraintTop_toBottomOf="@+id/etAge" />
-
-        <Button
-            android:id="@+id/btnUpdateData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="UPDATE PERSON"
-            app:layout_constraintEnd_toEndOf="@+id/etUpdateAge"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnSendToDatabase"
-            app:layout_constraintTop_toTopOf="@+id/btnSendToDatabase" />
-
-        <Button
-            android:id="@+id/btnRetreiveData"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="RETRIEVE DATA"
-            app:layout_constraintEnd_toEndOf="@+id/btnSendToDatabase"
-            app:layout_constraintStart_toStartOf="@+id/btnSendToDatabase"
-            app:layout_constraintTop_toBottomOf="@+id/btnSendToDatabase" />
-
-        <Button
-            android:id="@+id/btnDeletePerson"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Delete Person"
-            app:layout_constraintEnd_toEndOf="@+id/btnUpdateData"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/btnUpdateData"
-            app:layout_constraintTop_toTopOf="@+id/btnRetreiveData" />
-
-        <TextView
-            android:id="@+id/tvPersons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="PERSON DATA"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etFrom" />
-
-        <Button
-            android:id="@+id/btnDoBatchWrite"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Do Batch Write"
-            app:layout_constraintEnd_toEndOf="@+id/btnRetreiveData"
-            app:layout_constraintStart_toStartOf="@+id/btnRetreiveData"
-            app:layout_constraintTop_toBottomOf="@+id/btnRetreiveData" />
-
-        <Button
-            android:id="@+id/btnTransaction"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="Do Transaction"
-            app:layout_constraintEnd_toEndOf="@+id/btnDeletePerson"
-            app:layout_constraintStart_toStartOf="@+id/btnDeletePerson"
-            app:layout_constraintTop_toTopOf="@+id/btnDoBatchWrite" />
-
-        <EditText
-            android:id="@+id/etFrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="3"
-            android:layout_marginTop="8dp"
-            android:hint="min"
-            app:layout_constraintEnd_toStartOf="@+id/etTo"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnDoBatchWrite" />
-
-        <EditText
-            android:id="@+id/etTo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="3"
-            android:hint="max"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/etFrom"
-            app:layout_constraintTop_toTopOf="@+id/etFrom" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
