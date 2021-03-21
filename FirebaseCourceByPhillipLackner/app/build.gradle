@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'com.google.gms.google-services'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -41,7 +42,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.google.firebase:firebase-auth:20.0.3'
+    implementation 'com.google.firebase:firebase-auth-ktx:20.0.3'
     implementation 'com.google.firebase:firebase-firestore-ktx:22.1.1'
     implementation 'com.google.firebase:firebase-storage-ktx:19.2.1'
 //jangan lupa tambahkan ktx setelah kata firestore
@@ -53,6 +54,11 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
-
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
 }

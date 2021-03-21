@@ -5,8 +5,10 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_main.*
@@ -47,13 +49,38 @@ class MainActivity : AppCompatActivity() {
             deleteImage("myImage")
         }
 
+        listFile()
+
+    }
+
+    private fun listFile() = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val images = imageRef.child("images/").listAll().await()
+            val imageUrls = mutableListOf<String>()
+            for (image in images.items){
+                val url = image.downloadUrl.await()
+                imageUrls.add(url.toString())
+            }
+            withContext(Dispatchers.Main){
+                val imageAdapter = ImageAdapter(imageUrls)
+                rvimages.apply {
+                    adapter = imageAdapter
+                    layoutManager = LinearLayoutManager(this@MainActivity)
+                }
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun deleteImage(filename: String) = CoroutineScope(Dispatchers.IO).launch {
         try {
             imageRef.child("images/$filename").delete().await()
             withContext(Dispatchers.Main) {
-                Toast.makeText(this@MainActivity, "Succesfully delete images.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MainActivity, "Succesfully delete images.", Toast.LENGTH_LONG)
+                    .show()
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
