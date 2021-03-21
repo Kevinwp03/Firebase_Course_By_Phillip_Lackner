@@ -39,4 +39,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUploadImage" />
 
+    <Button
+        android:id="@+id/btnDeleteImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Image"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDownloadImage" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
