@@ -2,10 +2,13 @@ package com.example.firebasecourcebyphilliplackner
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,18 +40,35 @@ class MainActivity : AppCompatActivity() {
         btnUploadImage.setOnClickListener {
             uploadImageToStorage("myImage")
         }
+
+        btnDownloadImage.setOnClickListener {
+            downloadImage("myImage")
+        }
+    }
+
+    private fun downloadImage(filename: String) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val maxDownloadSize = 5L * 1024 * 1024
+            val byte = imageRef.child("images/$filename").getBytes(maxDownloadSize).await()
+            val bmp = BitmapFactory.decodeByteArray(byte, 0, byte.size)
+            ivImage.setImageBitmap(bmp)
+        } catch (e: Exception){
+            withContext(Dispatchers.Main){
+                Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun uploadImageToStorage(filename: String) = CoroutineScope(Dispatchers.IO).launch {
         try {
-            curFile?.let{
+            curFile?.let {
                 imageRef.child("images/$filename").putFile(it).await()
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     Toast.makeText(this@MainActivity, "Succesfully to upload image", Toast.LENGTH_LONG).show()
                 }
             }
         } catch (e: Exception) {
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
 
             }
@@ -57,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_IMAGE_PICK) {
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_IMAGE_PICK) { //?
             data?.data?.let {
                 curFile = it
                 ivImage.setImageURI(it)
